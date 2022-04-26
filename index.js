@@ -81,6 +81,18 @@ function validateCourse(course) {
   };
   return Joi.validate(course, schema);
 }
+
+app.delete("/api/course/:id", (req, res) => {
+  const course = courses.find((c) => c.id === +req.params.id);
+  if (!course) {
+    //404 -object not found
+    res.status(404).send("Course with given id not found");
+  }
+
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+  res.send(course);
+});
 //PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
