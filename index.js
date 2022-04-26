@@ -6,11 +6,14 @@ app.get("/", (req, res) => {
   res.send("Hello World!!!!");
 });
 
-app.get("/courses", (req, res) => {
+app.get("/api/courses", (req, res) => {
   console.log("hit");
   res.send[(1, 2, 3)];
 });
 
+app.get("/api/courses/:id", (req, res) => {
+  res.send(req.params.id);
+});
 //PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
