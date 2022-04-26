@@ -32,7 +32,7 @@ app.get("/api/courses/:id", (req, res) => {
   const course = courses.find((c) => c.id === +req.params.id);
   if (!course) {
     //404 -object not found
-    res.status(404).send("Course with given id not found");
+    return res.status(404).send("Course with given id not found");
   }
   res.send(course);
 });
@@ -43,8 +43,7 @@ app.post("/api/courses", (req, res) => {
   const { error } = validateCourse(req.body);
 
   if (error) {
-    res.status(400).send(error.details[0].message);
-    return;
+    return res.status(400).send(error.details[0].message);
   }
   // if (!req.body.name || req.body.name.length < 3) {
   //   res.status(400).send("Name is required & should be minimum 4 characters");
@@ -63,7 +62,7 @@ app.put("/api/courses/:id", (req, res) => {
   const course = courses.find((c) => c.id === +req.params.id);
   if (!course) {
     //404 -object not found
-    res.status(404).send("Course with given id not found");
+    return res.status(404).send("Course with given id not found");
   }
 
   const { error } = validateCourse(req.body);
@@ -86,7 +85,7 @@ app.delete("/api/course/:id", (req, res) => {
   const course = courses.find((c) => c.id === +req.params.id);
   if (!course) {
     //404 -object not found
-    res.status(404).send("Course with given id not found");
+    return res.status(404).send("Course with given id not found");
   }
 
   const index = courses.indexOf(course);
