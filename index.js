@@ -5,6 +5,12 @@ const app = express();
 
 app.use(express.json());
 
+//middleware for logging
+app.use(function (req, res, next) {
+  console.log("Logging");
+  // next();
+});
+
 const courses = [
   {
     id: 1,
