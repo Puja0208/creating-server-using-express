@@ -8,7 +8,12 @@ app.use(express.json());
 //middleware for logging
 app.use(function (req, res, next) {
   console.log("Logging");
-  // next();
+  next();
+});
+//middleware for logging
+app.use(function (req, res, next) {
+  console.log("Authenticsating");
+  next();
 });
 
 const courses = [
