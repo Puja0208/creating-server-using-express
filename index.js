@@ -5,7 +5,8 @@ const express = require("express");
 const func = require("joi/lib/types/func");
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); //middle ware to populate request.body
+app.use(express.urlencoded({ extended: true })); //built in middleware to parse incoming requests with url encoded payloads eg:key=value&key1=value
 
 //middleware for logging
 app.use(logger);
