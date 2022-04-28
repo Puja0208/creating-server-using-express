@@ -1,3 +1,5 @@
+const startupdDebugger = require("debug")("app:startup");
+const dbDebugger = require("debug")("app:db");
 const config = require("config");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -24,8 +26,11 @@ console.log("Mail Password:" + config.get("mail.password"));
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny")); //logs all requests sent to server
-  console.log("morgan enabled");
+  startupdDebugger("morgan enabled");
 }
+
+//Db work
+dbDebugger("connecte dto database...");
 
 //middleware for logging
 app.use(logger);
