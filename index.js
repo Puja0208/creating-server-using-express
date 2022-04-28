@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const Joi = require("joi");
 const logger = require("./logger");
 const courses = require("./routes/courses");
+const home = require("./routes/home");
 const auth = require("./authenticator");
 const express = require("express");
 const func = require("joi/lib/types/func");
@@ -23,6 +24,7 @@ app.use(express.static("public")); //serves static content
 
 app.use(helmet()); //middleware to set multiple http headers
 app.use("/api/courses", courses); //use courses router for any api that starts with /api/courses
+app.use("/", home);
 //Configurat"ion
 console.log("Application name:" + config.get("name"));
 console.log("Mail Server name:" + config.get("mail.host"));
@@ -39,11 +41,6 @@ if (app.get("env") === "development") {
 app.use(logger);
 //middleware for logging
 app.use(auth);
-
-app.get("/", (req, res) => {
-  // res.send("Hello World!!!!");
-  res.render("index", { title: "My express app", message: "Hello" });
-});
 
 //PORT
 const port = process.env.PORT || 3000;
