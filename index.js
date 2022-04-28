@@ -1,3 +1,5 @@
+const morgan = require("morgan");
+const helmet = require("helmet");
 const Joi = require("joi");
 const logger = require("./logger");
 const auth = require("./authenticator");
@@ -9,6 +11,10 @@ app.use(express.json()); //middle ware to populate request.body
 app.use(express.urlencoded({ extended: true })); //built in middleware to parse incoming requests with url encoded payloads eg:key=value&key1=value
 app.use(express.static("public")); //serves static content
 //put al static asstest like images etc in public folder
+
+app.use(helmet()); //middleware to set multiple http headers
+app.use(morgan("tiny")); //logs all requests sent to server
+
 //middleware for logging
 app.use(logger);
 //middleware for logging
