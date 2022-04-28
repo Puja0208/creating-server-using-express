@@ -7,13 +7,19 @@ const express = require("express");
 const func = require("joi/lib/types/func");
 const app = express();
 
+// console.log(`NODE_ENV is ${process.env.NODE_ENV}`);
+// console.log(`SPP: ${app.get("env")}`);
 app.use(express.json()); //middle ware to populate request.body
 app.use(express.urlencoded({ extended: true })); //built in middleware to parse incoming requests with url encoded payloads eg:key=value&key1=value
 app.use(express.static("public")); //serves static content
 //put al static asstest like images etc in public folder
 
 app.use(helmet()); //middleware to set multiple http headers
-app.use(morgan("tiny")); //logs all requests sent to server
+
+if (app.get("env") === "development") {
+  app.use(morgan("tiny")); //logs all requests sent to server
+  console.log("morgan enabled");
+}
 
 //middleware for logging
 app.use(logger);
