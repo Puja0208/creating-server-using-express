@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json()); //middle ware to populate request.body
 app.use(express.urlencoded({ extended: true })); //built in middleware to parse incoming requests with url encoded payloads eg:key=value&key1=value
-
+app.use(express.static("public")); //put al static asstest like images etc in public folder
 //middleware for logging
 app.use(logger);
 //middleware for logging
