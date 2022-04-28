@@ -1,5 +1,5 @@
-const startupdDebugger = require("debug")("app:startup");
-const dbDebugger = require("debug")("app:db");
+const debug = require("debug")("app:startup");
+
 const config = require("config");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -9,6 +9,9 @@ const auth = require("./authenticator");
 const express = require("express");
 const func = require("joi/lib/types/func");
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", "./views"); //;put all template sin views foldre
 
 // console.log(`NODE_ENV is ${process.env.NODE_ENV}`);
 // console.log(`SPP: ${app.get("env")}`);
@@ -26,11 +29,10 @@ console.log("Mail Password:" + config.get("mail.password"));
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny")); //logs all requests sent to server
-  startupdDebugger("morgan enabled");
+  debug("morgan enabled");
 }
 
 //Db work
-dbDebugger("connecte dto database...");
 
 //middleware for logging
 app.use(logger);
@@ -53,7 +55,8 @@ const courses = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("Hello World!!!!");
+  // res.send("Hello World!!!!");
+  res.render("index", { title: "My express app", message: "Hello" });
 });
 
 app.get("/api/courses", (req, res) => {
