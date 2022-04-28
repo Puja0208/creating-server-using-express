@@ -1,3 +1,4 @@
+const config = require("config");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const Joi = require("joi");
@@ -15,6 +16,10 @@ app.use(express.static("public")); //serves static content
 //put al static asstest like images etc in public folder
 
 app.use(helmet()); //middleware to set multiple http headers
+
+//Configurat"ion
+console.log("Application name:" + config.get("name"));
+console.log("Mail Server name:" + config.get("mail.host"));
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny")); //logs all requests sent to server
