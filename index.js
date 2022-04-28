@@ -1,4 +1,6 @@
 const Joi = require("joi");
+const logger = require("./logger");
+const auth = require("./authenticator");
 const express = require("express");
 const func = require("joi/lib/types/func");
 const app = express();
@@ -6,15 +8,9 @@ const app = express();
 app.use(express.json());
 
 //middleware for logging
-app.use(function (req, res, next) {
-  console.log("Logging");
-  next();
-});
+app.use(logger);
 //middleware for logging
-app.use(function (req, res, next) {
-  console.log("Authenticsating");
-  next();
-});
+app.use(auth);
 
 const courses = [
   {
